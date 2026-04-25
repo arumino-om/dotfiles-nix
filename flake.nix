@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -19,12 +19,15 @@
     # $ darwin-rebuild build --flake .#YukariARMN
     darwinConfigurations."YukariARMN" = nix-darwin.lib.darwinSystem {
       modules = [
-        ./darwin.nix
+        ./darwin/default.nix
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.masato = import ./home.nix;
+          home-manager.users.masato = { config, pkgs, lib, ... }: {
+            imports = [ ./home/default.nix ];
+            home.homeDirectory = lib.mkForce "/Users/masato";
+          };
 
           home-manager.backupFileExtension = "backup";
         }
