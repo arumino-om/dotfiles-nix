@@ -10,10 +10,6 @@
 - darwin/        - macOS固有の設定
 - home/          - home-manager共通設定
   - programs/    - 各ツールの設定
-- flake.nix (エントリーポイント)
-- darwin/ (macOS固有の設定)
-- home/ (home-manager共通設定)
-  - programs/ (各ツールの設定)
 ```
 
 ## セットアップ
