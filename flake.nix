@@ -11,7 +11,7 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
+ };
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
   {
@@ -30,6 +30,17 @@
           };
 
           home-manager.backupFileExtension = "backup";
+        }
+      ];
+    };
+    nixosConfigurations."Jack" = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./nixos/default.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.masato = import ./home/default.nix;
         }
       ];
     };
