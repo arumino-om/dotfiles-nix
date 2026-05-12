@@ -4,9 +4,9 @@
 
   imports = [
     ./programs/git.nix
-    ./programs/zsh.nix
     ./programs/starship.nix
     ./programs/neovim.nix
+    ./programs/zsh.nix
   ];
 
   home.packages = with pkgs; [
@@ -17,6 +17,17 @@
     fzf
     jq
     tree
+    htop
+    rsync
+    claude-code
+    ffmpeg
+    powershell
+    (texlive.combine {
+      inherit (texlive)
+        scheme-medium
+        collection-langjapanese
+        latexmk;
+    })
   ];
 
   programs.bat.enable = true;

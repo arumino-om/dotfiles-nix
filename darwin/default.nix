@@ -16,7 +16,7 @@
     dock = {
       autohide = true;  #自動でdockを隠す
       show-recents = false; #最近使用したアプリを隠す
-      tilesize = 68;  #タイルサイズ
+      tilesize = 58;  #タイルサイズ
     };
 
     finder = {
@@ -43,5 +43,12 @@
     };
   };
 
+  # compinit は home-manager 側で管理するため、nix-darwin 側では無効化
+  programs.zsh.enableCompletion = false;
+
   nixpkgs.hostPlatform = "aarch64-darwin";
+
+  imports = [
+    ./homebrew.nix
+  ];
 }
