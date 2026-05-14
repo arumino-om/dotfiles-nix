@@ -13,6 +13,8 @@
     bat
     eza
     fd
+    ghq
+    git
     ripgrep
     fzf
     jq

@@ -8,10 +8,8 @@
       "bitwarden"
       "iguanatexmac"
       "visual-studio-code"
-      # "mactex"
 
       # Developer tools
-      "imhex"
       "termius"
       "ghostty"
 

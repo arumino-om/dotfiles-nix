@@ -1,5 +1,5 @@
 # ========================================
-#           macOS Configuration
+#        Common macOS Configuration
 # ========================================
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
@@ -34,7 +34,7 @@
     };
 
     screencapture = { #スクショの場所とか
-      location = "~/Pitures/";
+      location = "~/Pictures/";
       type = "png";
     };
 
@@ -47,8 +47,4 @@
   programs.zsh.enableCompletion = false;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
-
-  imports = [
-    ./homebrew.nix
-  ];
 }

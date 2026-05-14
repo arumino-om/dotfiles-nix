@@ -1,5 +1,5 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Nix system configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -17,43 +17,46 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, home-manager, claude-code, ... }:
   let
-    supportedSystems = [ "aarch64-darwin" "x86_64-linux" ];
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    darwinHomeManagerModule = {
+      nixpkgs.overlays = [ claude-code.overlays.default ];
+      nixpkgs.config.allowUnfree = true;
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.masato = { config, pkgs, lib, ... }: {
+        imports = [ ./modules/home ];
+        home.homeDirectory = lib.mkForce "/Users/masato";
+        _module.args.pkgs-stable = import nixpkgs-stable {
+          system = "aarch64-darwin";
+        };
+      };
+      home-manager.backupFileExtension = "backup";
+    };
+
+    nixosHomeManagerModule = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.masato = import ./modules/home;
+    };
+
+    mkDarwinHost = hostPath: nix-darwin.lib.darwinSystem {
+      modules = [
+        hostPath
+        home-manager.darwinModules.home-manager
+        darwinHomeManagerModule
+      ];
+    };
+    
+    mkNixOSHost = hostPath: nixpkgs.lib.nixosSystem {
+      modules = [
+        hostPath
+        home-manager.nixosModules.home-manager
+        nixosHomeManagerModule
+      ];
+    };
   in
   {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#YukariARMN
-    darwinConfigurations."YukariARMN" = nix-darwin.lib.darwinSystem {
-      modules = [
-        ./darwin/default.nix
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs.overlays = [ claude-code.overlays.default ];
-          nixpkgs.config.allowUnfree = true;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.masato = { config, pkgs, lib, ... }: {
-            imports = [ ./home/default.nix ];
-            home.homeDirectory = lib.mkForce "/Users/masato";
-            _module.args.pkgs-stable = import nixpkgs-stable {
-              system = "aarch64-darwin";
-            };
-          };
-
-          home-manager.backupFileExtension = "backup";
-        }
-      ];
-    };
-    nixosConfigurations."Jack" = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./nixos/default.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.masato = import ./home/default.nix;
-        }
-      ];
-    };
+    darwinConfigurations."YukariARMN" = mkDarwinHost ./hosts/YukariARMN;
+    darwinConfigurations."ARMN-HonYokoLab" = mkDarwinHost ./hosts/ARMN-HonYokoLab;
+    nixosConfigurations."Jack" = mkNixOSHost ./hosts/Jack;
   };
 }
