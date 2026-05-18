@@ -1,7 +1,21 @@
 { config, pkgs, lib, ... }: {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "none";
+    onActivation.cleanup = "zap";
+
+    taps = [
+      {
+        name = "shaunsingh/sfmono-nerd-font-ligaturized";
+      }
+      {
+        name = "tsung-ju/iguanatexmac";
+      }
+    ];
+
+    brews = [
+      "pinentry-mac"
+    ];
+
     casks = [
       # General tools
       "atok"

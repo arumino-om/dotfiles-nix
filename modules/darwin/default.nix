@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     git
     vim
+    gnupg
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
