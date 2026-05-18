@@ -7,6 +7,7 @@
   # YukariARMN 固有の設定
   homebrew.casks = [
     "imhex"
+    "keycastr"
   ];
 
   homebrew.brews = [
