@@ -34,11 +34,6 @@
       Clicking = true;  #タップでクリック
     };
 
-    screencapture = { #スクショの場所とか
-      location = "~/Pictures/";
-      type = "png";
-    };
-
     loginwindow = {
       GuestEnabled = false;
     };
@@ -46,6 +41,9 @@
 
   # compinit は home-manager 側で管理するため、nix-darwin 側では無効化
   programs.zsh.enableCompletion = false;
+
+  # Touch ID で sudo 認証を可能にする
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 }
