@@ -38,6 +38,17 @@
       home-manager.users.masato = import ./modules/home;
     };
 
+    nixosArmHomeManagerModule = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.masato = { config, pkgs, lib, ... }: {
+        imports = [ ./modules/home ];
+        _module.args.pkgs-stable = import nixpkgs-stable {
+          system = "aarch64-linux";
+        };
+      };
+    };
+
     mkDarwinHost = hostPath: nix-darwin.lib.darwinSystem {
       modules = [
         hostPath
@@ -53,10 +64,19 @@
         nixosHomeManagerModule
       ];
     };
+
+    mkNixOSArmHost = hostPath: nixpkgs.lib.nixosSystem {
+      modules = [
+        hostPath
+        home-manager.nixosModules.home-manager
+        nixosArmHomeManagerModule
+      ];
+    };
   in
   {
     darwinConfigurations."YukariARMN" = mkDarwinHost ./hosts/YukariARMN;
     darwinConfigurations."ARMN-HonYokoLab" = mkDarwinHost ./hosts/ARMN-HonYokoLab;
     nixosConfigurations."Jack" = mkNixOSHost ./hosts/Jack;
+    nixosConfigurations."Ethan" = mkNixOSArmHost ./hosts/Ethan;
   };
 }
