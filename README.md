@@ -4,13 +4,11 @@
 - macOS (nix-darwin)
 - Linux (対応予定)
 
-## 構成
-```
-- flake.nix      - エントリーポイント
-- darwin/        - macOS固有の設定
-- home/          - home-manager共通設定
-  - programs/    - 各ツールの設定
-```
+## ホスト一覧
+- ARMN-HonYokoLab: 研究室Mac (nix-darwin, aarch64)
+- YukariARMN: M5 MacBook Air (nix-darwin, aarch64)
+- Jack: デスクトップPC (nixos, x86_64)
+- Ethan: M5 MacBook Air 上で動いてる仮想環境 (nixos, aarch64)
 
 ## セットアップ
 ### macOS
@@ -26,6 +24,4 @@ $ dsw
 ```
 
 ## 主なツール
-- zsh + starship
-- neovim (with LazyVim)
-- git
+nixファイルに書いてる
