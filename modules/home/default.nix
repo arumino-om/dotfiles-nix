@@ -32,6 +32,7 @@
     })
   ];
 
+  programs.gh.enable = true;
   programs.bat.enable = true;
   programs.fzf.enable = true;
 
