@@ -8,9 +8,17 @@
   homebrew.casks = [
     "imhex"
     "keycastr"
+    "wireshark-app"
+    "anki"
   ];
 
   homebrew.brews = [
     "vlmcsd"
+  ];
+
+  environment.systemPackages = with pkgs; [
+    nodejs
+    python313
+    uv
   ];
 }

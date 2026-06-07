@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }: {
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
 
     taps = [
       {
