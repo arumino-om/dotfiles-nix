@@ -41,6 +41,7 @@
     nixosArmHomeManagerModule = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = ".bkup";
       home-manager.users.masato = { config, pkgs, lib, ... }: {
         imports = [ ./modules/home ./modules/home-nixos  ];
         _module.args.pkgs-stable = import nixpkgs-stable {
