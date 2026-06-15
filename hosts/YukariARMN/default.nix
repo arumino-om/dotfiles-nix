@@ -10,6 +10,10 @@
     "keycastr"
     "wireshark-app"
     "anki"
+
+    # IDE
+    "clion"
+    "rider"
   ];
 
   homebrew.brews = [
