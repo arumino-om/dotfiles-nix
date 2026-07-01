@@ -14,6 +14,7 @@
     # IDE
     "clion"
     "rider"
+    "phpstorm"
   ];
 
   homebrew.brews = [

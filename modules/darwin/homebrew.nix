@@ -21,6 +21,7 @@
       "bitwarden"
       "iguanatexmac"
       "visual-studio-code"
+      "stretchly"
 
       # Developer tools
       "termius"

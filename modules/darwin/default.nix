@@ -28,6 +28,8 @@
 
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark"; #ダークモードにする
+      NSStatusItemSpacing = 9;
+      NSStatusItemSelectionPadding = 6;
     };
 
     trackpad = {
