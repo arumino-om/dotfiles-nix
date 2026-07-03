@@ -19,6 +19,8 @@
       # General tools
       "atok"
       "bitwarden"
+      "1password"
+      "1password-cli"
       "iguanatexmac"
       "visual-studio-code"
       "stretchly"
