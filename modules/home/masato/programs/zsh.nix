@@ -1,0 +1,25 @@
+{ lib, pkgs-stable, ... }: {
+  programs.zsh = {
+    enable = true;
+    package = pkgs-stable.zsh; # unstable版zshはコマンド置換でハングするバグがあるため、stable版を使う
+    enableCompletion = false;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+      ll = "eza -la --icons";
+      ls = "eza --icons";
+      cat = "bat";
+      dsw = "sudo darwin-rebuild switch --flake ~/dev/github.com/arumino-om/dotfiles-nix";
+    };
+
+    initContent = lib.mkBefore ''
+      autoload -Uz compinit
+      if [[ -f ''${ZDOTDIR:-$HOME}/.zcompdump ]]; then
+        compinit -C
+      else
+        compinit
+      fi
+    '';
+  };
+}

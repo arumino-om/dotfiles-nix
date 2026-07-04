@@ -23,8 +23,15 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.masato = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home ];
+        imports = [ ./modules/home/masato ];
         home.homeDirectory = lib.mkForce "/Users/masato";
+        _module.args.pkgs-stable = import nixpkgs-stable {
+          system = "aarch64-darwin";
+        };
+      };
+      home-manager.users.hutao = { config, pkgs, lib, ... }: {
+        imports = [ ./modules/home/hutao ];
+        home.homeDirectory = lib.mkForce "/Users/hutao";
         _module.args.pkgs-stable = import nixpkgs-stable {
           system = "aarch64-darwin";
         };
@@ -35,7 +42,9 @@
     nixosHomeManagerModule = {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.masato = import ./modules/home;
+      home-manager.users.masato = { config, pkgs, lib, ... }: {
+        imports = [ ./modules/home/masato ./modules/home-nixos/masato ];
+      };
     };
 
     nixosArmHomeManagerModule = {
@@ -43,7 +52,7 @@
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = ".bkup";
       home-manager.users.masato = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home ./modules/home-nixos  ];
+        imports = [ ./modules/home/masato ./modules/home-nixos/masato  ];
         _module.args.pkgs-stable = import nixpkgs-stable {
           system = "aarch64-linux";
         };
