@@ -13,80 +13,64 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
- };
+  };
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-stable, home-manager, claude-code, ... }:
   let
-    darwinHomeManagerModule = {
-      nixpkgs.overlays = [ claude-code.overlays.default ];
-      nixpkgs.config.allowUnfree = true;
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.masato = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home/masato ];
-        home.homeDirectory = lib.mkForce "/Users/masato";
-        _module.args.pkgs-stable = import nixpkgs-stable {
-          system = "aarch64-darwin";
-        };
-      };
-      home-manager.users.hutao = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home/hutao ];
-        home.homeDirectory = lib.mkForce "/Users/hutao";
-        _module.args.pkgs-stable = import nixpkgs-stable {
-          system = "aarch64-darwin";
-        };
-      };
-      home-manager.backupFileExtension = "backup";
-    };
+    lib = nixpkgs.lib;
+    sharedOverlays = [ claude-code.overlays.default ];
 
-    nixosHomeManagerModule = {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.masato = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home/masato ./modules/home-nixos/masato ];
-      };
-    };
-
-    nixosArmHomeManagerModule = {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = ".bkup";
-      home-manager.users.masato = { config, pkgs, lib, ... }: {
-        imports = [ ./modules/home/masato ./modules/home-nixos/masato  ];
-        _module.args.pkgs-stable = import nixpkgs-stable {
-          system = "aarch64-linux";
-        };
-      };
-    };
-
-    mkDarwinHost = hostPath: nix-darwin.lib.darwinSystem {
+    mkHost = { hostName, system, class, users ? {}, overlays ? [] }:
+    let
+      builder  = if class == "darwin"
+                 then nix-darwin.lib.darwinSystem
+                 else nixpkgs.lib.nixosSystem;
+      hmModule = if class == "darwin"
+                 then home-manager.darwinModules.home-manager
+                 else home-manager.nixosModules.home-manager;
+      pkgs-stable = import nixpkgs-stable { inherit system; };
+    in builder {
+      inherit system;
       modules = [
-        hostPath
-        home-manager.darwinModules.home-manager
-        darwinHomeManagerModule
-      ];
-    };
-    
-    mkNixOSHost = hostPath: nixpkgs.lib.nixosSystem {
-      modules = [
-        hostPath
-        home-manager.nixosModules.home-manager
-        nixosHomeManagerModule
-      ];
-    };
+        ./hosts/${hostName}
+        hmModule
+        {
+          nixpkgs.overlays = sharedOverlays ++ overlays;
+          nixpkgs.config.allowUnfree = true;
 
-    mkNixOSArmHost = hostPath: nixpkgs.lib.nixosSystem {
-      modules = [
-        hostPath
-        home-manager.nixosModules.home-manager
-        nixosArmHomeManagerModule
+          home-manager.useGlobalPkgs       = true;
+          home-manager.useUserPackages     = true;
+          home-manager.backupFileExtension = ".bkup";
+          home-manager.extraSpecialArgs    = { inherit pkgs-stable; };
+          home-manager.users = lib.mapAttrs (u: cfg: {
+            imports = [ ./modules/home/users/${u} ]
+              ++ lib.optional (class != "darwin") ./modules/home-nixos/users/${u}
+              ++ (cfg.roles or []);
+            home.homeDirectory = lib.mkIf (class == "darwin") (lib.mkForce "/Users/${u}");
+          }) users;
+        }
       ];
     };
   in
   {
-    darwinConfigurations."YukariARMN" = mkDarwinHost ./hosts/YukariARMN;
-    darwinConfigurations."ARMN-HonYokoLab" = mkDarwinHost ./hosts/ARMN-HonYokoLab;
-    nixosConfigurations."Jack" = mkNixOSHost ./hosts/Jack;
-    nixosConfigurations."Ethan" = mkNixOSArmHost ./hosts/Ethan;
+    darwinConfigurations."YukariARMN" = mkHost {
+      hostName = "YukariARMN"; system = "aarch64-darwin"; class = "darwin";
+      users = { masato = {}; };
+    };
+
+    darwinConfigurations."ARMN-HonYokoLab" = mkHost {
+      hostName = "ARMN-HonYokoLab"; system = "aarch64-darwin"; class = "darwin";
+      users = { masato = {}; };
+    };
+
+    nixosConfigurations."Jack" = mkHost {
+      hostName = "Jack"; system = "x86_64-linux"; class = "nixos";
+      users = { masato = {}; };
+    };
+
+    nixosConfigurations."Ethan" = mkHost {
+      hostName = "Ethan"; system = "aarch64-linux"; class = "nixos";
+      users = { masato = {}; };
+    };
   };
 }

@@ -13,6 +13,8 @@
 
     brews = [
       "pinentry-mac"
+      "ghostscript"
+      "bitwarden-cli"
     ];
 
     casks = [
@@ -24,6 +26,7 @@
       "iguanatexmac"
       "visual-studio-code"
       "stretchly"
+      "adobe-acrobat-reader"
 
       # Developer tools
       "termius"
