@@ -27,6 +27,7 @@
       "visual-studio-code"
       "stretchly"
       "adobe-acrobat-reader"
+      "morisawa-desktop-manager"
 
       # Developer tools
       "termius"

@@ -4,7 +4,4 @@
     ../../modules/darwin/homebrew.nix
   ];
 
-  homebrew.casks = [
-    texlive
-  ]
 }
