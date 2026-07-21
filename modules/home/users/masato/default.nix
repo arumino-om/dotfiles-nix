@@ -23,6 +23,7 @@
     rsync
     claude-code
     ffmpeg
+    git-credential-manager
     powershell
     (texlive.combine {
       inherit (texlive)
