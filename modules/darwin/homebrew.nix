@@ -28,6 +28,7 @@
       "stretchly"
       "adobe-acrobat-reader"
       "morisawa-desktop-manager"
+      "claude"
 
       # Developer tools
       "termius"
