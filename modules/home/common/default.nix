@@ -1,7 +1,8 @@
-{ pkgs, lib, ... }: {
-  home.username = "masato";
-  home.stateVersion = "25.11";
-
+# ========================================
+#      Common home-manager Configuration
+# ========================================
+# 全ユーザー共通の home-manager 設定
+{ pkgs, ... }: {
   imports = [
     ./programs/git.nix
     ./programs/starship.nix
@@ -9,28 +10,19 @@
     ./programs/zsh.nix
   ];
 
+  home.stateVersion = "25.11";
+
   home.packages = with pkgs; [
-    bat
     eza
     fd
     ghq
     git
     ripgrep
-    fzf
     jq
     tree
     htop
-    rsync
     claude-code
     ffmpeg
-    git-credential-manager
-    powershell
-    (texlive.combine {
-      inherit (texlive)
-        scheme-medium
-        collection-langjapanese
-        latexmk;
-    })
   ];
 
   programs.gh.enable = true;

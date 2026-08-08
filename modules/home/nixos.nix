@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+# NixOS 上のユーザー共通 home-manager 設定
+{ ... }: {
   xdg.userDirs.enable = true;
 
   dconf = {

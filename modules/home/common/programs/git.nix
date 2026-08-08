@@ -11,6 +11,8 @@
         pull.rebase = true;
         push.autoSetupRemote = true;
       };
+
+      ghq.root = "~/dev";
     };
   };
 }

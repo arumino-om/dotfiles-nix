@@ -1,10 +1,5 @@
-{ config, pkgs, ... }: {
-  imports = [
-    ../../modules/darwin
-    ../../modules/darwin/homebrew.nix
-  ];
-
-  # YukariARMN 固有の設定
+# YukariARMN 固有の設定 (macOS / aarch64)
+{ pkgs, ... }: {
   homebrew.casks = [
     "imhex"
     "keycastr"
@@ -16,7 +11,6 @@
     "clion"
     "rider"
     "phpstorm"
-
   ];
 
   homebrew.brews = [

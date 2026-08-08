@@ -1,17 +1,14 @@
 # ========================================
 #        Common macOS Configuration
 # ========================================
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    gnupg
+# macOS (nix-darwin) ホスト共通の設定
+{ primaryUser, ... }: {
+  imports = [
+    ./homebrew.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   system.stateVersion = 6;
-  system.primaryUser = "masato";
+  system.primaryUser = primaryUser;
 
   system.defaults = {
     dock = {
@@ -46,6 +43,4 @@
 
   # Touch ID で sudo 認証を可能にする
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  nixpkgs.hostPlatform = "aarch64-darwin";
 }
