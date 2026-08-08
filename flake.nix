@@ -44,7 +44,7 @@
           home-manager.extraSpecialArgs    = { inherit pkgs-stable; };
           home-manager.users = lib.mapAttrs (u: cfg: {
             imports = [ ./modules/home/users/${u} ]
-              ++ lib.optional (class != "darwin") ./modules/home-nixos/users/${u}
+              ++ lib.optional (class == "nixos") ./modules/home-nixos/users/${u}
               ++ (cfg.roles or []);
             home.homeDirectory = lib.mkIf (class == "darwin") (lib.mkForce "/Users/${u}");
           }) users;
@@ -53,24 +53,25 @@
     };
   in
   {
-    darwinConfigurations."YukariARMN" = mkHost {
+    darwinConfigurations."primary" = mkHost {
       hostName = "YukariARMN"; system = "aarch64-darwin"; class = "darwin";
       users = { masato = {}; };
     };
 
-    darwinConfigurations."ARMN-HonYokoLab" = mkHost {
+    nixosConfigurations."primary-vm" = mkHost {
+      hostName = "Ethan"; system = "aarch64-linux"; class = "nixos";
+      users = { masato = {}; };
+    };
+
+    darwinConfigurations."lab" = mkHost {
       hostName = "ARMN-HonYokoLab"; system = "aarch64-darwin"; class = "darwin";
       users = { masato = {}; };
     };
 
-    nixosConfigurations."Jack" = mkHost {
+    nixosConfigurations."desktop" = mkHost {
       hostName = "Jack"; system = "x86_64-linux"; class = "nixos";
       users = { masato = {}; };
     };
 
-    nixosConfigurations."Ethan" = mkHost {
-      hostName = "Ethan"; system = "aarch64-linux"; class = "nixos";
-      users = { masato = {}; };
-    };
   };
 }

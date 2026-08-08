@@ -10,11 +10,13 @@
     "keycastr"
     "wireshark-app"
     "anki"
+    "gimp"
 
     # IDE
     "clion"
     "rider"
     "phpstorm"
+
   ];
 
   homebrew.brews = [
