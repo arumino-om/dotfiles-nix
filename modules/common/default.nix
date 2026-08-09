@@ -12,4 +12,6 @@
     vim
     gnupg
   ];
+
+  imports = [ ./programs/gnupg ];
 }
