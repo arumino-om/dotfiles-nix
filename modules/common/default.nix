@@ -10,8 +10,5 @@
   environment.systemPackages = with pkgs; [
     git
     vim
-    gnupg
   ];
-
-  imports = [ ./programs/gnupg ];
 }

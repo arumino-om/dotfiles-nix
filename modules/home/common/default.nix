@@ -8,6 +8,7 @@
     ./programs/starship.nix
     ./programs/neovim.nix
     ./programs/zsh.nix
+    ./programs/gnupg.nix
   ];
 
   home.stateVersion = "25.11";

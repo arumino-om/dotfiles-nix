@@ -12,7 +12,7 @@
     ];
 
     brews = [
-      "pinentry-mac"
+      # "pinentry-mac"
       "ghostscript"
       "bitwarden-cli"
     ];

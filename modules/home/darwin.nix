@@ -1,5 +1,5 @@
 # macOS 上のユーザー共通 home-manager 設定
-{ lib, ... }: {
+{ lib, pkgs, ... }: {
   programs.zsh = {
     shellAliases = {
       dsw = "sudo darwin-rebuild switch --flake ~/dev/github.com/arumino-om/dotfiles-nix";
@@ -16,4 +16,6 @@
       fi
     '';
   };
+
+  services.gpg-agent.pinentry.package = pkgs.pinentry_mac;
 }

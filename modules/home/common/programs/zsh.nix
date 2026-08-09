@@ -7,8 +7,8 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      ll = "eza -la --icons";
-      ls = "eza --icons";
+      ll = "eza -la";
+      ls = "eza";
       cat = "bat";
     };
 
