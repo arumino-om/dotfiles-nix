@@ -73,7 +73,8 @@
   {
     darwinConfigurations."primary" = mkHost {
       hostName = "YukariARMN"; system = "aarch64-darwin"; class = "darwin";
-      users = { masato = {}; };
+      users = { masato = {}; hutao = {}; };
+      primaryUser = "masato";  # Homebrew は masato 所有のため明示する (未指定だと attrNames 順で hutao になる)
     };
 
     nixosConfigurations."primary-vm" = mkHost {

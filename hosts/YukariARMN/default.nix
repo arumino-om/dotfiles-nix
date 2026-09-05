@@ -7,6 +7,9 @@
     "anki"
     "gimp"
 
+    # Browser
+    "google-chrome"
+
     # IDE
     "clion"
     "rider"

@@ -5,14 +5,16 @@
     taps = [
       {
         name = "shaunsingh/sfmono-nerd-font-ligaturized";
+        trusted = true;
       }
       {
         name = "tsung-ju/iguanatexmac";
+        trusted = true;
       }
     ];
 
     brews = [
-      # "pinentry-mac"
+      # pinentry-mac は nix (services.gpg-agent.pinentry.package) で管理する
       "ghostscript"
       "bitwarden-cli"
     ];
@@ -25,7 +27,6 @@
       "1password-cli"
       "iguanatexmac"
       "visual-studio-code"
-      "stretchly"
       "adobe-acrobat-reader"
       "morisawa-desktop-manager"
       "claude"
@@ -40,6 +41,9 @@
 
       # Fonts
       "font-sf-mono-nerd-font-ligaturized"
+
+      # Writing tools
+      "zotero"
     ];
   };
 }
