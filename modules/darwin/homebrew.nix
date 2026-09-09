@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }: {
   homebrew = {
     enable = true;
+    onActivation.cleanup = "zap";
 
     taps = [
       {
@@ -22,7 +23,6 @@
     casks = [
       # General tools
       "atok"
-      "bitwarden"
       "1password"
       "1password-cli"
       "iguanatexmac"
@@ -30,13 +30,13 @@
       "adobe-acrobat-reader"
       "morisawa-desktop-manager"
       "claude"
+      "zotero"
 
       # Developer tools
       "termius"
       "ghostty"
-
-      # Network
-      "cloudflare-warp"
+      "wireshark-app"
+      "imhex"
 
       # Fonts
       "font-sf-mono-nerd-font-ligaturized"

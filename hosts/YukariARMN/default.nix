@@ -1,9 +1,7 @@
 # YukariARMN 固有の設定 (macOS / aarch64)
 { pkgs, ... }: {
-  homebrew.casks = [
-    "imhex"
+  homebrew.casks = [ 
     "keycastr"
-    "wireshark-app"
     "anki"
     "gimp"
 
