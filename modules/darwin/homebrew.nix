@@ -30,7 +30,6 @@
       "adobe-acrobat-reader"
       "morisawa-desktop-manager"
       "claude"
-      "qbittorrent"
 
       # Developer tools
       "termius"
