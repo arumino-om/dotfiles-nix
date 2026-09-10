@@ -32,6 +32,9 @@
       "claude"
       "zotero"
 
+      # Game
+      "retroarch"
+
       # Developer tools
       "termius"
       "ghostty"
