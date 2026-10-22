@@ -17,7 +17,6 @@
     brews = [
       # pinentry-mac は nix (services.gpg-agent.pinentry.package) で管理する
       "ghostscript"
-      "bitwarden-cli"
     ];
 
     casks = [
@@ -31,9 +30,7 @@
       "morisawa-desktop-manager"
       "claude"
       "zotero"
-
-      # Game
-      "retroarch"
+      "raycast"
 
       # Developer tools
       "termius"
@@ -43,9 +40,6 @@
 
       # Fonts
       "font-sf-mono-nerd-font-ligaturized"
-
-      # Writing tools
-      "zotero"
     ];
   };
 }

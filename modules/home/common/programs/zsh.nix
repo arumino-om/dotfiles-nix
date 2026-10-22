@@ -2,7 +2,7 @@
   programs.zsh = {
     enable = true;
     package = pkgs-stable.zsh; # unstable版zshはコマンド置換でハングするバグがあるため、stable版を使う
-    enableCompletion = false;
+    enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 

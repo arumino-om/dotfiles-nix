@@ -6,8 +6,6 @@
     rsync
     git-credential-manager
     powershell
-    # unstable の Python 3.14 では pyqt5 (asymptote 依存) がビルドできないため、
-    # texlive は stable (Python 3.13 系) でビルドする。zsh と同じ回避パターン。
     (pkgs-stable.texlive.combine {
       inherit (pkgs-stable.texlive)
         scheme-medium
